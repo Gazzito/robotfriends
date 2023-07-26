@@ -1,7 +1,7 @@
 {
   "name": "robotfriends",
   "version": "0.1.0",
-  "homepage": "https://gazzito.github.io/robotfriends/public/index.html",
+  "homepage": "https://gazzito.github.io/robotfriends/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
