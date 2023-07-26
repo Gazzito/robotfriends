@@ -7,7 +7,7 @@ const CardList = ({robots}) =>{
     })
     return (
        
-        <div>
+        <div className="mt2">
             {cardComponent};
         </div>
 
