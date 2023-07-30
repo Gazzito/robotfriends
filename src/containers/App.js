@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import CardList from "./CardList";
-import SearchBox from "./SearchBox.js";
-import Scroll from "./Scroll.js";
+import CardList from "../components/CardList";
+import SearchBox from "../components/SearchBox.js";
+import Scroll from "../components/Scroll.js";
 
 class App extends Component {
   constructor() {
@@ -24,13 +24,14 @@ class App extends Component {
     this.setState({ searchfield: event.target.value });
   };
 
-  render() {
-    const filteredRobots = this.state.robots.filter((robot) => {
+  render() { 
+    const { robots, searchfield } = this.state
+    const filteredRobots = robots.filter((robot) => {
       return robot.name
         .toLowerCase()
-        .includes(this.state.searchfield.toLocaleLowerCase());
+        .includes(searchfield.toLocaleLowerCase());
     });
-    if (this.state.robots.length === 0) {
+    if (robots.length === 0) {
       return <h1>Loading</h1>;
     } else {
       return (
