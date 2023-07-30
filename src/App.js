@@ -1,37 +1,51 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 import CardList from "./CardList";
-import { robots } from "./Robots";
 import SearchBox from "./SearchBox.js";
-
-
+import Scroll from "./Scroll.js";
 
 class App extends Component {
-    constructor(){
-        super();
-        this.state = {
-            robots: robots,
-            searchfield: ''
-        }
-    }
+  constructor() {
+    super();
+    this.state = {
+      robots: [],
+      searchfield: "",
+    };
+  }
 
-    onSearchChange = (event) => {
-        this.setState({searchfield: event.target.value});
-    }
+  componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((users) => {
+        this.setState({ robots: users });
+      });
+  }
 
-    render(){
-        const filteredRobots = this.state.robots.filter(robot => {
-            return robot.name.toLowerCase().includes(this.state.searchfield.toLocaleLowerCase());
-        })
+  onSearchChange = (event) => {
+    this.setState({ searchfield: event.target.value });
+  };
 
-        return (
-            <div className="tc"> 
-              <h1 className="shadow-5 mb4 pa3"><span className="f1 white i">RobotFriends</span></h1>
-              <SearchBox searchChange ={this.onSearchChange}/>
-              <CardList robots={filteredRobots} />
-            </div>
-          );
+  render() {
+    const filteredRobots = this.state.robots.filter((robot) => {
+      return robot.name
+        .toLowerCase()
+        .includes(this.state.searchfield.toLocaleLowerCase());
+    });
+    if (this.state.robots.length === 0) {
+      return <h1>Loading</h1>;
+    } else {
+      return (
+        <div className="tc">
+          <h1 className="shadow-5 mb4 pa3">
+            <span className="f1 white i">RobotFriends</span>
+          </h1>
+          <SearchBox searchChange={this.onSearchChange} />
+          <Scroll>
+            <CardList robots={filteredRobots} />
+          </Scroll>
+        </div>
+      );
     }
-  
-};
+  }
+}
 
 export default App;
